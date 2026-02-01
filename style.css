@@ -1,0 +1,508 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =====================
+   BASE
+===================== */
+body {
+  background: #0b0b0b;
+  color: #e9e2d6;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  padding-top: 90px; /* altura del header fijo */
+}
+
+/* =====================
+   TYPOGRAPHY
+===================== */
+h1,
+h2,
+h3,
+.title,
+.section-title,
+.contact-headline {
+  font-family: Impact, Arial Black, sans-serif;
+  font-weight: normal;
+  letter-spacing: 0.02em;
+}
+
+p,
+li,
+span,
+a {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =====================
+   HEADER / NAV
+===================== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem 2rem;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  all: unset;
+  cursor: pointer;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.brand:hover {
+  opacity: 0.7;
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.nav-link {
+  all: unset;
+  cursor: pointer;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.nav-link:hover {
+  opacity: 0.6;
+}
+
+/* =====================
+   HERO / PORTFOLIO
+===================== */
+.hero {
+  height: calc(100vh - 90px);
+  width: 100%;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-3vh);
+}
+
+.title {
+  font-size: clamp(4rem, 18vw, 16rem);
+  line-height: 0.9;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.photo {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  transform: translate(-50%, -50%);
+  max-height: 80vh;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* =====================
+   SECTIONS (GLOBAL)
+===================== */
+section {
+  padding: 8rem 6vw;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+/* =====================
+   INTRO
+===================== */
+.intro {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.intro-text small {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #aaa;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.intro h2 {
+  font-size: 2.4rem;
+  margin-bottom: 2rem;
+}
+
+.intro p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #d6d0c6;
+  margin-bottom: 1.2rem;
+}
+
+.intro-photo img {
+  max-width: 280px;
+  border-radius: 12px;
+}
+/* =====================
+   HOME – SERVICES
+===================== */
+.home-services {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-top: 6rem;
+}
+
+.home-services .section-title {
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  margin-bottom: 2rem;
+}
+
+.home-services-text {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  max-width: 700px;
+  margin-bottom: 2.5rem;
+  color: #e9e2d6;
+}
+
+.home-services-list {
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #bdb6aa;
+}
+/* =====================
+   HOME – PROJECTS
+===================== */
+.home-projects {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.home-projects-link {
+  display: block;
+  margin: 4rem auto 0 auto;
+  width: fit-content;
+
+  font-size: 0.9rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+
+  color: #e9e2d6;
+  text-decoration: none;
+
+  padding: 0.6rem 1.2rem;
+  border: 1px solid rgba(233,226,214,0.4);
+}
+
+.home-projects-link:hover {
+  background: #e9e2d6;
+  color: #0b0b0b;
+}
+
+/* =====================
+   HOME – PROCESS
+===================== */
+.home-process {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+}
+
+.process-step span {
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  color: #aaa;
+}
+
+.process-step h3 {
+  font-size: 1.4rem;
+  margin: 1rem 0;
+}
+
+.process-step p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #d6d0c6;
+}
+
+/* =====================
+   HOME – CTA
+===================== */
+.home-cta {
+  text-align: center;
+  padding: 10rem 6vw;
+}
+
+.home-cta h2 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+}
+/* =====================
+   PROJECTS
+===================== */
+.projects {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.projects-intro {
+  max-width: 520px;
+  margin-bottom: 4rem;
+
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #d6d0c6;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+}
+
+.project {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.project-image {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  background: #111;
+  border-radius: 12px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-image img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  cursor: zoom-in;
+}
+
+/* Hover overlay */
+.project-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project:hover .project-image::after {
+  opacity: 1;
+}
+
+.project-poster img {
+  padding: 1.5rem;
+}
+
+.project-info h3 {
+  font-size: 1.1rem;
+}
+
+.project-info p {
+  font-size: 0.9rem;
+  color: #bdb6aa;
+}
+
+.project:hover h3 {
+  opacity: 0.85;
+}
+
+/* =====================
+   LIGHTBOX
+===================== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  cursor: zoom-out;
+}
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+/* =====================
+   SERVICES
+===================== */
+.services {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.services-lead {
+  max-width: 600px;
+  margin-bottom: 5rem;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #d6d0c6;
+}
+
+.services-blocks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+}
+
+.service-block {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.service-block h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.service-block p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #d6d0c6;
+  margin-bottom: 1.5rem;
+}
+
+.service-block ul {
+  list-style: none;
+}
+
+.service-block li {
+  font-size: 0.95rem;
+  color: #bdb6aa;
+  padding-left: 1rem;
+  margin-bottom: 0.6rem;
+  position: relative;
+}
+
+.service-block li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+}
+
+/* =====================
+   CONTACT
+===================== */
+.contact-layout {
+  max-width: 1400px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 8rem;
+}
+
+.contact-headline {
+  font-size: clamp(3.2rem, 6vw, 5rem);
+  line-height: 1;
+  margin-bottom: 2rem;
+}
+
+.contact-intro {
+  max-width: 420px;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+}
+
+.contact-cta {
+  all: unset;
+  cursor: pointer;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid #e9e2d6;
+}
+
+.contact-side {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.contact-photo {
+  width: 140px;
+}
+
+.contact-photo img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.contact-block {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.contact-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #aaa;
+}
+
+/* =====================
+   MOBILE
+===================== */
+@media (max-width: 900px) {
+  .intro-grid,
+  .projects-grid,
+  .services-blocks,
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .photo {
+    max-height: 55vh;
+  }
+
+  .project-image {
+    height: 220px;
+  }
+}

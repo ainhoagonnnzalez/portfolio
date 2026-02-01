@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ainhoa González · Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/style.css?">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="site-header">
+  <button type="button" class="brand" onclick="goToHome()">Ainhoa González</button>
+
+  <nav class="site-nav">
+    <button type="button" class="nav-link" onclick="goToProjects()">Proyectos</button>
+    <button type="button" class="nav-link" onclick="goToServices()">Servicios</button>
+    <button type="button" class="nav-link" onclick="goToContact()">Contacto</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1 class="title">PORTFOLIO</h1>
+  <img src="images/portada.png" alt="Ainhoa González" class="photo">
+</section>
+
+<section class="intro">
+  <div class="intro-grid">
+    <div class="intro-text">
+      <small>Sobre mí</small>
+      <h2>Diseño experiencias digitales<br>donde estética y código van de la mano</h2>
+
+      <p>Tengo 22 años y estudio Marketing y Publicidad en Girona.</p>
+      <p>Quiero dedicarme al diseño y desarrollo web creando experiencias visuales cuidadas.</p>
+    </div>
+
+    <div class="intro-photo">
+      <img src="images/ainhoa.jpg" alt="Ainhoa González">
+    </div>
+  </div>
+</section>
+<section class="home-services">
+  <h2 class="section-title">Qué hago</h2>
+  <p class="home-services-text">
+    Diseño soluciones visuales y digitales que combinan estética,
+    estrategia y funcionalidad.
+  </p>
+  <p class="home-services-list">
+    Diseño gráfico · Diseño web · Marketing digital
+  </p>
+</section>
+<section class="home-projects">
+  <h2 class="section-title">Proyectos destacados</h2>
+
+  <div class="projects-grid">
+
+    <article class="project">
+      <div class="project-image">
+        <img src="images/carnaval.png" alt="Carnaval ETG">
+      </div>
+      <div class="project-info">
+        <h3>Carnaval a l’ETG</h3>
+        <p>Diseño gráfico</p>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-image">
+        <img src="images/p1.png" alt="Identidad visual">
+      </div>
+      <div class="project-info">
+        <h3>Identidad visual</h3>
+        <p>Branding</p>
+      </div>
+    </article>
+
+  </div>
+
+  <a href="projects.html" class="home-projects-link">
+    Ver todos los proyectos
+  </a>
+</section>
+<section class="home-process">
+  <h2 class="section-title">Cómo trabajo</h2>
+
+  <div class="process-grid">
+    <div class="process-step">
+      <span>01</span>
+      <h3>Concepto</h3>
+      <p>Analizo la idea y el contexto del proyecto.</p>
+    </div>
+
+    <div class="process-step">
+      <span>02</span>
+      <h3>Diseño</h3>
+      <p>Creo una solución visual clara y coherente.</p>
+    </div>
+
+    <div class="process-step">
+      <span>03</span>
+      <h3>Desarrollo</h3>
+      <p>Transformo el diseño en una experiencia digital.</p>
+    </div>
+  </div>
+</section>
+<section class="home-cta">
+  <h2>¿Empezamos un proyecto juntos?</h2>
+  <a href="contact.html" class="contact-cta">Contacto</a>
+</section>
+
+<script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="main.js?v=12"></script>
+</body>
+</html>
