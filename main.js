@@ -176,15 +176,16 @@ if (hasGSAP && typeof ScrollTrigger !== "undefined") {
     // No queremos repetir animacion en el hero.
     if (section.classList.contains("hero")) return;
 
-    // Animacion sencilla: aparece y sube un poco.
+    // Animacion base suave para cada bloque.
     gsap.from(section, {
       opacity: 0,
-      y: 80,
-      duration: 1,
-      ease: "power3.out",
+      y: 88,
+      scale: 0.96,
+      duration: 1.1,
+      ease: "power4.out",
       scrollTrigger: {
         trigger: section,
-        start: "top 80%",
+        start: "top 90%",
         toggleActions: "play none none none"
       }
     });
@@ -205,6 +206,93 @@ if (hasGSAP && typeof ScrollTrigger !== "undefined") {
 }
 
 /* =====================
+   BLOQUES INTERNOS (HOME)
+===================== */
+
+// Animaciones internas para que cada bloque tenga más entrada visual.
+if (hasGSAP && typeof ScrollTrigger !== "undefined") {
+  if (document.querySelector(".intro")) {
+    gsap.from(".intro-text > *", {
+      opacity: 0,
+      y: 44,
+      stagger: 0.14,
+      duration: 0.95,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".intro",
+        start: "top 86%"
+      }
+    });
+
+    gsap.from(".intro-photo", {
+      opacity: 0,
+      x: 80,
+      rotate: 2,
+      duration: 1,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".intro",
+        start: "top 84%"
+      }
+    });
+  }
+
+  if (document.querySelector(".home-services")) {
+    gsap.from(".home-services .section-title, .home-services .section-intro, .home-services-text, .home-services-list", {
+      opacity: 0,
+      y: 40,
+      stagger: 0.13,
+      duration: 0.9,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".home-services",
+        start: "top 88%"
+      }
+    });
+  }
+
+  if (document.querySelector(".home-process")) {
+    gsap.from(".home-process .section-title, .home-process .section-intro", {
+      opacity: 0,
+      y: 40,
+      duration: 0.9,
+      stagger: 0.12,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".home-process",
+        start: "top 88%"
+      }
+    });
+
+    gsap.from(".process-step", {
+      opacity: 0,
+      y: 60,
+      stagger: 0.16,
+      duration: 1,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".process-grid",
+        start: "top 88%"
+      }
+    });
+  }
+
+  if (document.querySelector(".home-cta")) {
+    gsap.from(".home-cta h2, .home-cta-note, .home-cta .contact-cta", {
+      opacity: 0,
+      y: 50,
+      stagger: 0.14,
+      duration: 0.95,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".home-cta",
+        start: "top 90%"
+      }
+    });
+  }
+}
+
+/* =====================
    HIGHLIGHTS ANIMATION
 ===================== */
 
@@ -212,13 +300,14 @@ if (hasGSAP && typeof ScrollTrigger !== "undefined") {
 if (hasGSAP && typeof ScrollTrigger !== "undefined" && document.querySelector(".highlights-grid")) {
   gsap.from(".highlight-card", {
     opacity: 0,
-    y: 40,
-    stagger: 0.12,
-    duration: 0.8,
-    ease: "power3.out",
+    y: 70,
+    rotate: 1.5,
+    stagger: 0.16,
+    duration: 1,
+    ease: "power4.out",
     scrollTrigger: {
       trigger: ".highlights-grid",
-      start: "top 82%"
+      start: "top 90%"
     }
   });
 }
@@ -231,13 +320,81 @@ if (hasGSAP && typeof ScrollTrigger !== "undefined" && document.querySelector(".
 if (hasGSAP && typeof ScrollTrigger !== "undefined" && document.querySelector(".projects-grid")) {
   gsap.from(".project", {
     opacity: 0,
-    y: 60,
-    stagger: 0.18,
-    duration: 1,
-    ease: "power3.out",
+    y: 90,
+    stagger: 0.2,
+    duration: 1.1,
+    ease: "power4.out",
     scrollTrigger: {
       trigger: ".projects-grid",
-      start: "top 80%"
+      start: "top 90%"
+    }
+  });
+}
+
+/* =====================
+   PROJECTS PAGE ANIMATION
+===================== */
+
+if (hasGSAP && typeof ScrollTrigger !== "undefined" && document.querySelector(".projects-list")) {
+  gsap.from(".projects-header > *", {
+    opacity: 0,
+    y: 46,
+    stagger: 0.12,
+    duration: 0.95,
+    ease: "power4.out"
+  });
+
+  gsap.utils.toArray(".project-row").forEach((row, index) => {
+    const direction = index % 2 === 0 ? -1 : 1;
+
+    gsap.from(row.querySelector(".project-media"), {
+      opacity: 0,
+      x: 90 * direction,
+      y: 34,
+      duration: 1.1,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: row,
+        start: "top 90%"
+      }
+    });
+
+    gsap.from(row.querySelector(".project-text"), {
+      opacity: 0,
+      x: -70 * direction,
+      y: 28,
+      duration: 1,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: row,
+        start: "top 90%"
+      }
+    });
+  });
+}
+
+/* =====================
+   SERVICES PAGE ANIMATION
+===================== */
+
+if (hasGSAP && typeof ScrollTrigger !== "undefined" && document.querySelector(".services-blocks")) {
+  gsap.from(".services-intro > *", {
+    opacity: 0,
+    y: 44,
+    stagger: 0.12,
+    duration: 0.9,
+    ease: "power4.out"
+  });
+
+  gsap.from(".service-block", {
+    opacity: 0,
+    y: 66,
+    stagger: 0.16,
+    duration: 1,
+    ease: "power4.out",
+    scrollTrigger: {
+      trigger: ".services-blocks",
+      start: "top 90%"
     }
   });
 }
@@ -249,33 +406,34 @@ if (hasGSAP && typeof ScrollTrigger !== "undefined" && document.querySelector(".
 // Estas animaciones solo se usan si existe el layout de contacto.
 if (hasGSAP && document.querySelector(".contact-layout")) {
   gsap.from(".contact-headline", {
-    y: 40,
+    y: 64,
     opacity: 0,
-    duration: 1,
-    ease: "power3.out"
+    duration: 1.1,
+    ease: "power4.out"
   });
 
   gsap.from(".contact-intro", {
-    y: 20,
+    y: 44,
     opacity: 0,
-    duration: 0.8,
-    delay: 0.15,
-    ease: "power3.out"
+    duration: 0.95,
+    delay: 0.18,
+    ease: "power4.out"
   });
 
   gsap.from(".contact-cta", {
     opacity: 0,
-    duration: 0.6,
-    delay: 0.35
+    y: 28,
+    duration: 0.8,
+    delay: 0.36
   });
 
   gsap.from(".contact-block", {
-    y: 20,
+    y: 44,
     opacity: 0,
-    duration: 0.8,
-    stagger: 0.15,
-    delay: 0.45,
-    ease: "power3.out"
+    duration: 0.95,
+    stagger: 0.18,
+    delay: 0.48,
+    ease: "power4.out"
   });
 }
 

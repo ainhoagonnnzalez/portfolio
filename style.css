@@ -26,9 +26,14 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background:
-    linear-gradient(90deg, transparent 8%, rgba(233,226,214,0.06) 8.1%, transparent 8.2%),
-    linear-gradient(90deg, transparent 81%, rgba(233,226,214,0.05) 81.1%, transparent 81.2%);
-  opacity: 0.6;
+    repeating-linear-gradient(
+      90deg,
+      rgba(233,226,214,0.075) 0px,
+      rgba(233,226,214,0.075) 82px,
+      transparent 82px,
+      transparent 170px
+    );
+  opacity: 0.14;
 }
 
 body::after {
@@ -38,16 +43,9 @@ body::after {
   z-index: 0;
   pointer-events: none;
   background:
-    repeating-linear-gradient(
-      0deg,
-      rgba(233,226,214,0.012) 0,
-      rgba(233,226,214,0.012) 1px,
-      transparent 1px,
-      transparent 4px
-    ),
     radial-gradient(circle at 50% 120%, rgba(0,0,0,0.38), transparent 48%),
     radial-gradient(circle at 50% -22%, rgba(0,0,0,0.3), transparent 42%);
-  opacity: 0.32;
+  opacity: 0.2;
 }
 
 body > * {
@@ -103,10 +101,7 @@ body > * {
 }
 
 .hero::after {
-  right: 10%;
-  top: 14%;
-  width: 1px;
-  height: 26%;
+  content: none;
 }
 
 .home-projects::before,
@@ -163,24 +158,25 @@ a:hover {
   top: 14px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(1320px, calc(100% - 28px));
-  padding: 0.85rem 1.1rem 0.85rem 1.6rem;
+  width: min(1320px, calc(100% - 34px));
+  padding: 0.44rem 1.1rem 0.44rem 1.6rem;
   z-index: 1000;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  border-radius: 16px;
+  border-radius: 999px;
   background: linear-gradient(
     90deg,
-    rgba(17, 17, 17, 0.78) 0%,
-    rgba(10, 10, 10, 0.86) 55%,
-    rgba(18, 18, 18, 0.8) 100%
+    rgba(221, 221, 221, 0.34) 0%,
+    rgba(209, 209, 209, 0.38) 55%,
+    rgba(225, 225, 225, 0.36) 100%
   );
   box-shadow:
     0 16px 34px rgba(0,0,0,0.35),
-    inset 0 1px 0 rgba(233,226,214,0.12);
+    inset 0 1px 0 rgba(255,255,255,0.45);
+  color: #14120f;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   transition: background 0.3s ease, border-color 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
@@ -189,9 +185,9 @@ a:hover {
 .site-header.scrolled {
   background: linear-gradient(
     90deg,
-    rgba(14, 14, 14, 0.9) 0%,
-    rgba(6, 6, 6, 0.92) 55%,
-    rgba(12, 12, 12, 0.9) 100%
+    rgba(221, 221, 221, 0.48) 0%,
+    rgba(209, 209, 209, 0.5) 55%,
+    rgba(225, 225, 225, 0.48) 100%
   );
   box-shadow: 0 20px 40px rgba(0,0,0,0.35);
 }
@@ -213,9 +209,9 @@ a:hover {
 .site-nav {
   display: flex;
   gap: 0.3rem;
-  padding: 0.28rem;
-  border-radius: 12px;
-  background: rgba(233,226,214,0.08);
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
 .nav-link {
@@ -224,7 +220,7 @@ a:hover {
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 0.55rem 0.95rem;
+  padding: 0.3rem 0.95rem;
   border-radius: 8px;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
@@ -232,7 +228,7 @@ a:hover {
 .nav-link:hover {
   opacity: 0.95;
   transform: translateY(-1px);
-  background: rgba(233,226,214,0.12);
+  background: transparent;
 }
 
 /* =====================================================
@@ -541,20 +537,41 @@ section {
 }
 
 .home-projects .project-image {
-  height: 260px;
-  background: #111;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: transparent;
   border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
+  position: relative;
   transition: transform 0.35s ease, box-shadow 0.35s ease;
+  border: 1px solid rgba(233,226,214,0.16);
 }
 
 .home-projects .project-image img {
-  max-width: 90%;
-  max-height: 90%;
-  object-fit: contain;
-  transition: transform 0.35s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.home-projects .project-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.28));
+  pointer-events: none;
+  z-index: 1;
+}
+
+.home-projects .project-image::after {
+  content: "✶";
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  font-size: 0.85rem;
+  color: rgba(233,226,214,0.88);
+  z-index: 2;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.35);
 }
 
 .project-meta {
@@ -875,20 +892,8 @@ section {
 }
 
 .service-block {
-  position: relative;
-  padding-top: 4rem;   /* antes 3rem */
-  border-left: 1px solid rgba(233,226,214,0.08);
-  padding-left: 2.5rem;
-}
-
-.service-block::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 56px;               /* más larga */
-  height: 1px;               /* más fina */
-  background: rgba(233,226,214,0.35);
+  padding-top: 1rem;
+  padding-left: 0.2rem;
 }
 
 .service-block h2 {
@@ -911,18 +916,24 @@ section {
 }
 
 .service-block li {
-  font-size: 0.85rem;        /* un poco más pequeño */
-  letter-spacing: 0.12em;   /* más editorial */
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
   color: #bdb6aa;
   margin-bottom: 0.7rem;
-  padding-left: 1.2rem;
+  padding-left: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
 }
 
 .service-block li::before {
-  content: "—";
-  position: absolute;
-  left: 0;
-  opacity: 0.3;
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(233,226,214,0.5);
+  display: inline-block;
+  opacity: 0.9;
 }
 
 .services-block::after {
@@ -1208,8 +1219,8 @@ section {
 
   .site-header {
     top: 10px;
-    width: calc(100% - 16px);
-    padding: 0.7rem 0.75rem 0.7rem 1rem;
+    width: calc(100% - 18px);
+    padding: 0.4rem 0.72rem 0.4rem 0.95rem;
     gap: 0.6rem;
   }
 
@@ -1219,13 +1230,13 @@ section {
   }
 
   .site-nav {
-    padding: 0.22rem;
+    padding: 0;
     gap: 0.1rem;
   }
 
   .nav-link {
     font-size: 0.64rem;
-    padding: 0.45rem 0.55rem;
+    padding: 0.25rem 0.55rem;
     letter-spacing: 0.08em;
   }
 
