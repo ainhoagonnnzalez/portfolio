@@ -53,6 +53,61 @@ body > * {
   z-index: 1;
 }
 
+.has-custom-cursor,
+.has-custom-cursor a,
+.has-custom-cursor button {
+  cursor: none !important;
+}
+
+.custom-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 3000;
+}
+
+.custom-cursor-core {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ece5d8;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 18px rgba(236,229,216,0.35);
+}
+
+.custom-cursor-ring {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(236,229,216,0.65);
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+}
+
+.custom-cursor-star {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 0.62rem;
+  color: rgba(236,229,216,0.92);
+  line-height: 1;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.has-custom-cursor.cursor-hover .custom-cursor-ring {
+  width: 52px;
+  height: 52px;
+  border-color: rgba(236,229,216,0.95);
+}
+
+.has-custom-cursor.cursor-hover .custom-cursor-star {
+  transform: translate(-50%, -50%) scale(1.25);
+}
+
 .ambient-glow {
   position: fixed;
   inset: -25vh -20vw;

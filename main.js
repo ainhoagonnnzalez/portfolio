@@ -28,6 +28,74 @@ function goToContactMail() {
 }
 
 /* =====================
+   CUSTOM CURSOR
+===================== */
+
+function initCustomCursor() {
+  const canUseCustomCursor =
+    window.matchMedia("(hover: hover)").matches &&
+    window.matchMedia("(pointer: fine)").matches;
+
+  if (!canUseCustomCursor) return;
+
+  document.body.classList.add("has-custom-cursor");
+
+  const cursor = document.createElement("div");
+  cursor.className = "custom-cursor";
+  cursor.innerHTML = `
+    <span class="custom-cursor-ring"></span>
+    <span class="custom-cursor-core"></span>
+    <span class="custom-cursor-star">✶</span>
+  `;
+  document.body.appendChild(cursor);
+
+  const ring = cursor.querySelector(".custom-cursor-ring");
+  const core = cursor.querySelector(".custom-cursor-core");
+  const star = cursor.querySelector(".custom-cursor-star");
+
+  let targetX = window.innerWidth * 0.5;
+  let targetY = window.innerHeight * 0.5;
+  let currentX = targetX;
+  let currentY = targetY;
+
+  function onMove(event) {
+    targetX = event.clientX;
+    targetY = event.clientY;
+  }
+
+  function animate() {
+    currentX += (targetX - currentX) * 0.22;
+    currentY += (targetY - currentY) * 0.22;
+
+    ring.style.left = `${currentX}px`;
+    ring.style.top = `${currentY}px`;
+
+    core.style.left = `${targetX}px`;
+    core.style.top = `${targetY}px`;
+
+    star.style.left = `${currentX + 12}px`;
+    star.style.top = `${currentY - 12}px`;
+
+    requestAnimationFrame(animate);
+  }
+
+  const interactive = document.querySelectorAll("a, button, .project-image, .highlight-card");
+  interactive.forEach((element) => {
+    element.addEventListener("mouseenter", () => {
+      document.body.classList.add("cursor-hover");
+    });
+    element.addEventListener("mouseleave", () => {
+      document.body.classList.remove("cursor-hover");
+    });
+  });
+
+  window.addEventListener("pointermove", onMove, { passive: true });
+  animate();
+}
+
+initCustomCursor();
+
+/* =====================
    HEADER QUE CAMBIA AL HACER SCROLL
 ===================== */
 
