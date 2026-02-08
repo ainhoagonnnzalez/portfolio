@@ -301,7 +301,6 @@ if (hasGSAP && typeof ScrollTrigger !== "undefined" && document.querySelector(".
   gsap.from(".highlight-card", {
     opacity: 0,
     y: 70,
-    rotate: 1.5,
     stagger: 0.16,
     duration: 1,
     ease: "power4.out",
@@ -443,7 +442,7 @@ if (hasGSAP && document.querySelector(".contact-layout")) {
 
 // Efecto suave de inclinacion en tarjetas/imagenes para dar vida al layout.
 if (hasGSAP) {
-  const tiltTargets = document.querySelectorAll(".highlight-card, .project-image, .process-step");
+  const tiltTargets = document.querySelectorAll(".project-image, .process-step");
 
   tiltTargets.forEach((card) => {
     card.addEventListener("mousemove", (event) => {
