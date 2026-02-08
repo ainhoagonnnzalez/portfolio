@@ -71,20 +71,20 @@ body > * {
 
 .custom-cursor-core {
   position: absolute;
-  width: 7px;
-  height: 7px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: #ece5d8;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 18px rgba(236,229,216,0.35);
+  box-shadow: 0 0 10px rgba(236,229,216,0.22);
 }
 
 .custom-cursor-ring {
   position: absolute;
-  width: 34px;
-  height: 34px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  border: 1px solid rgba(236,229,216,0.65);
+  border: 1px solid rgba(236,229,216,0.45);
   transform: translate(-50%, -50%);
   transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
 }
@@ -92,20 +92,20 @@ body > * {
 .custom-cursor-star {
   position: absolute;
   transform: translate(-50%, -50%);
-  font-size: 0.62rem;
-  color: rgba(236,229,216,0.92);
+  font-size: 0.5rem;
+  color: rgba(236,229,216,0.72);
   line-height: 1;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .has-custom-cursor.cursor-hover .custom-cursor-ring {
-  width: 52px;
-  height: 52px;
-  border-color: rgba(236,229,216,0.95);
+  width: 34px;
+  height: 34px;
+  border-color: rgba(236,229,216,0.65);
 }
 
 .has-custom-cursor.cursor-hover .custom-cursor-star {
-  transform: translate(-50%, -50%) scale(1.25);
+  transform: translate(-50%, -50%) scale(1.08);
 }
 
 .ambient-glow {
