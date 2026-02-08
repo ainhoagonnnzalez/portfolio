@@ -5,19 +5,19 @@
   <title>Servicios · Ainhoa González</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
 
 <header class="site-header">
-  <button class="brand" onclick="goToHome()">Ainhoa González</button>
+  <button type="button" class="brand" onclick="goToHome()">Ainhoa González</button>
 
   <nav class="site-nav">
-    <button class="nav-link" onclick="goToProjects()">Proyectos</button>
-    <button class="nav-link" onclick="goToServices()">Servicios</button>
-    <button class="nav-link" onclick="goToContact()">Contacto</button>
+    <button type="button" class="nav-link" onclick="goToProjects()">Proyectos</button>
+    <button type="button" class="nav-link" onclick="goToServices()">Servicios</button>
+    <button type="button" class="nav-link" onclick="goToContact()">Contacto</button>
   </nav>
 </header>
 
@@ -70,6 +70,9 @@
 
 </section>
 
-<script src="main.js?v=12"></script>
+<script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="main.js"></script>
+
 </body>
 </html>

@@ -5,7 +5,7 @@
   <title>Ainhoa González · Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="/style.css?">
+  <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 </head>
 
@@ -21,11 +21,17 @@
   </nav>
 </header>
 
+<!-- HERO -->
 <section class="hero">
-  <h1 class="title">PORTFOLIO</h1>
+  <h1 class="title" aria-label="PORTFOLIO">
+    <span>P</span><span>O</span><span>R</span><span>T</span><span>F</span><span>O</span><span>L</span><span>I</span><span>O</span>
+  </h1>
+  <span class="hero-sub">Graphic & Web Design-TEST</span>
   <img src="images/portada.png" alt="Ainhoa González" class="photo">
 </section>
+<div class="editorial-line"></div>
 
+<!-- INTRO -->
 <section class="intro">
   <div class="intro-grid">
     <div class="intro-text">
@@ -41,6 +47,10 @@
     </div>
   </div>
 </section>
+
+<div class="editorial-line"></div>
+
+<!-- QUÉ HAGO -->
 <section class="home-services">
   <h2 class="section-title">Qué hago</h2>
   <p class="home-services-text">
@@ -51,11 +61,14 @@
     Diseño gráfico · Diseño web · Marketing digital
   </p>
 </section>
+
+<div class="editorial-line"></div>
+
+<!-- PROYECTOS DESTACADOS -->
 <section class="home-projects">
   <h2 class="section-title">Proyectos destacados</h2>
 
   <div class="projects-grid">
-
     <article class="project">
       <div class="project-image">
         <img src="images/carnaval.png" alt="Carnaval ETG">
@@ -75,13 +88,16 @@
         <p>Branding</p>
       </div>
     </article>
-
   </div>
 
   <a href="projects.html" class="home-projects-link">
     Ver todos los proyectos
   </a>
 </section>
+
+<div class="editorial-line"></div>
+
+<!-- CÓMO TRABAJO -->
 <section class="home-process">
   <h2 class="section-title">Cómo trabajo</h2>
 
@@ -105,12 +121,18 @@
     </div>
   </div>
 </section>
+
+<div class="editorial-line"></div>
+
+<!-- CTA FINAL -->
 <section class="home-cta">
   <h2>¿Empezamos un proyecto juntos?</h2>
   <a href="contact.html" class="contact-cta">Contacto</a>
 </section>
 
 <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="main.js?v=12"></script>
+<script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="main.js"></script>
+
 </body>
 </html>
