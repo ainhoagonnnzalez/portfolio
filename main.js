@@ -629,7 +629,10 @@ function initAmbientEffects() {
 
   // Crea una particula en un punto.
   function spawnParticle(x, y) {
-    if (particles.length >= maxParticles) return;
+    // Si llegamos al limite, quitamos la mas antigua para mantener fluidez constante.
+    if (particles.length >= maxParticles) {
+      particles.shift();
+    }
 
     particles.push({
       x,
@@ -681,7 +684,7 @@ function initAmbientEffects() {
   function processPointer(x, y) {
     moveTimer = 9;
     const distance = Math.hypot(x - lastX, y - lastY);
-    const burst = Math.max(4, Math.min(10, Math.floor(distance / 10)));
+    const burst = Math.max(5, Math.min(14, Math.floor(distance / 8)));
 
     for (let i = 0; i < burst; i += 1) {
       const t = burst === 1 ? 1 : i / (burst - 1);
