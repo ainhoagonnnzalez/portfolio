@@ -43,15 +43,15 @@ function initCustomCursor() {
   const cursor = document.createElement("div");
   cursor.className = "custom-cursor";
   cursor.innerHTML = `
-    <span class="custom-cursor-ring"></span>
-    <span class="custom-cursor-core"></span>
-    <span class="custom-cursor-star">✶</span>
+    <span class="custom-cursor-halo"></span>
+    <span class="custom-cursor-orb"></span>
+    <span class="custom-cursor-spark">✦</span>
   `;
   document.body.appendChild(cursor);
 
-  const ring = cursor.querySelector(".custom-cursor-ring");
-  const core = cursor.querySelector(".custom-cursor-core");
-  const star = cursor.querySelector(".custom-cursor-star");
+  const halo = cursor.querySelector(".custom-cursor-halo");
+  const orb = cursor.querySelector(".custom-cursor-orb");
+  const spark = cursor.querySelector(".custom-cursor-spark");
 
   let targetX = window.innerWidth * 0.5;
   let targetY = window.innerHeight * 0.5;
@@ -64,19 +64,15 @@ function initCustomCursor() {
   }
 
   function animate() {
-    currentX += (targetX - currentX) * 0.22;
-    currentY += (targetY - currentY) * 0.22;
+    // Seguimiento más rápido para que el cursor se sienta inmediato.
+    currentX += (targetX - currentX) * 0.42;
+    currentY += (targetY - currentY) * 0.42;
 
-    ring.style.left = `${currentX}px`;
-    ring.style.top = `${currentY}px`;
+    halo.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+    orb.style.transform = `translate3d(${targetX}px, ${targetY}px, 0) translate(-50%, -50%)`;
+    spark.style.transform = `translate3d(${currentX + 14}px, ${currentY - 14}px, 0) translate(-50%, -50%)`;
 
-    core.style.left = `${targetX}px`;
-    core.style.top = `${targetY}px`;
-
-    star.style.left = `${currentX + 12}px`;
-    star.style.top = `${currentY - 12}px`;
-
-    requestAnimationFrame(animate);
+    window.requestAnimationFrame(animate);
   }
 
   const interactive = document.querySelectorAll("a, button, .project-image, .highlight-card");
@@ -90,10 +86,17 @@ function initCustomCursor() {
   });
 
   window.addEventListener("pointermove", onMove, { passive: true });
+  window.addEventListener("pointerleave", () => {
+    cursor.style.opacity = "0";
+  });
+  window.addEventListener("pointerenter", () => {
+    cursor.style.opacity = "1";
+  });
+
   animate();
 }
 
-initCustomCursor();
+// Cursor personalizado desactivado: usamos el cursor normal del sistema.
 
 /* =====================
    HEADER QUE CAMBIA AL HACER SCROLL
@@ -545,28 +548,37 @@ if (hasGSAP) {
 
 // Animacion de entrada del footer.
 if (hasGSAP && typeof ScrollTrigger !== "undefined" && document.querySelector(".site-footer")) {
-  gsap.from(".footer-brand, .footer-links", {
+  // Fallback visual: evita que el bloque final se quede oculto por un estado intermedio.
+  gsap.set(".footer-bottom", { autoAlpha: 1, y: 0, clearProps: "transform" });
+
+  const footerTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".site-footer",
+      start: "top 85%",
+      once: true
+    }
+  });
+
+  footerTl.from(".footer-brand, .footer-links", {
     y: 36,
     opacity: 0,
     duration: 0.9,
     stagger: 0.15,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: ".site-footer",
-      start: "top 85%"
-    }
+    ease: "power3.out"
   });
 
-  gsap.from(".footer-bottom", {
-    opacity: 0,
-    y: 20,
-    duration: 0.8,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: ".footer-bottom",
-      start: "top 92%"
-    }
-  });
+  footerTl.fromTo(
+    ".footer-bottom",
+    { autoAlpha: 0, y: 20 },
+    {
+      autoAlpha: 1,
+      y: 0,
+      duration: 0.75,
+      ease: "power3.out",
+      immediateRender: false
+    },
+    "-=0.25"
+  );
 }
 
 /* =====================
@@ -578,7 +590,8 @@ function initAmbientEffects() {
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // En pantallas pequenas tampoco, para no recargar.
-  if (prefersReducedMotion || window.innerWidth < 768) return;
+  const lowPowerDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+  if (prefersReducedMotion || window.innerWidth < 768 || lowPowerDevice) return;
 
   // Capa de color suave del fondo.
   const glow = document.createElement("div");
@@ -602,7 +615,7 @@ function initAmbientEffects() {
   let frameCount = 0;
   let pendingPointer = null;
   let pointerRaf = 0;
-  let maxParticles = 160;
+  let maxParticles = 110;
 
   // Aqui guardamos las particulas y estrellas.
   const particles = [];
@@ -617,7 +630,7 @@ function initAmbientEffects() {
     canvas.width = Math.floor(width * dpr);
     canvas.height = Math.floor(height * dpr);
     context.setTransform(dpr, 0, 0, dpr, 0, 0);
-    maxParticles = Math.max(120, Math.min(220, Math.round(width / 5)));
+    maxParticles = Math.max(80, Math.min(140, Math.round(width / 8)));
   }
 
   // Crea una estrella con valores aleatorios.
@@ -625,8 +638,8 @@ function initAmbientEffects() {
     return {
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: Math.random() * 0.9 + 0.55,
-      alpha: Math.random() * 0.22 + 0.07,
+      radius: Math.random() * 1.05 + 0.62,
+      alpha: Math.random() * 0.28 + 0.1,
       twinkle: Math.random() * 0.05 + 0.015,
       rotation: Math.random() * Math.PI
     };
@@ -662,7 +675,7 @@ function initAmbientEffects() {
   // Rellena la pantalla con estrellas.
   function seedStars() {
     stars.length = 0;
-    const starCount = Math.max(56, Math.round(width / 34));
+    const starCount = Math.max(42, Math.round(width / 48));
 
     for (let i = 0; i < starCount; i += 1) {
       stars.push(createStar());
@@ -676,17 +689,17 @@ function initAmbientEffects() {
     particles.push({
       x,
       y,
-      vx: (Math.random() - 0.5) * 1.7,
-      vy: (Math.random() - 0.5) * 1.7,
+      vx: (Math.random() - 0.5) * 1.35,
+      vy: (Math.random() - 0.5) * 1.35,
       life: 1,
-      size: Math.random() * 2 + 1.35,
+      size: Math.random() * 1.45 + 1,
       rotation: Math.random() * Math.PI
     });
   }
 
   function processPointer(x, y) {
     const distance = Math.hypot(x - lastX, y - lastY);
-    const burst = Math.max(4, Math.min(11, Math.floor(distance / 7)));
+    const burst = Math.max(2, Math.min(7, Math.floor(distance / 10)));
 
     for (let i = 0; i < burst; i += 1) {
       const t = burst === 1 ? 1 : i / (burst - 1);
@@ -730,8 +743,11 @@ function initAmbientEffects() {
       }
 
       context.fillStyle = `rgba(233, 226, 214, ${star.alpha})`;
+      context.shadowBlur = 7;
+      context.shadowColor = "rgba(255, 238, 205, 0.34)";
       drawStar(star.x, star.y, 5, star.radius, star.radius * 0.24, star.rotation);
       context.fill();
+      context.shadowBlur = 0;
     }
 
     // Dibujar particulas del rastro.
@@ -741,8 +757,8 @@ function initAmbientEffects() {
       particle.x += particle.vx;
       particle.y += particle.vy;
       particle.vy -= 0.01;
-      particle.life -= 0.018;
-      particle.size *= 0.992;
+      particle.life -= 0.024;
+      particle.size *= 0.986;
       particle.rotation += 0.022;
 
       // Cuando ya casi no se ve, la borramos.
@@ -751,9 +767,9 @@ function initAmbientEffects() {
         continue;
       }
 
-      context.fillStyle = `rgba(233, 226, 214, ${particle.life * 0.92})`;
-      context.shadowBlur = 14;
-      context.shadowColor = "rgba(255, 230, 190, 0.55)";
+      context.fillStyle = `rgba(233, 226, 214, ${particle.life * 0.96})`;
+      context.shadowBlur = 12;
+      context.shadowColor = "rgba(255, 235, 200, 0.68)";
       drawStar(
         particle.x,
         particle.y,
@@ -797,4 +813,4 @@ function initAmbientEffects() {
 }
 
 // Arranca los efectos al cargar el archivo.
-initAmbientEffects();
+// Efecto de estrellas/estela desactivado.
