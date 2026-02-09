@@ -593,12 +593,7 @@ function initAmbientEffects() {
   const lowPowerDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
   if (prefersReducedMotion || window.innerWidth < 768 || lowPowerDevice) return;
 
-  // Capa de color suave del fondo.
-  const glow = document.createElement("div");
-  glow.className = "ambient-glow";
-  document.body.prepend(glow);
-
-  // Canvas para dibujar estrellas y rastro.
+  // Canvas para dibujar un rastro suave del cursor.
   const canvas = document.createElement("canvas");
   canvas.id = "cursor-trail-canvas";
   document.body.prepend(canvas);
@@ -612,14 +607,13 @@ function initAmbientEffects() {
   let lastX = window.innerWidth * 0.5;
   let lastY = window.innerHeight * 0.5;
   let rafId = 0;
-  let frameCount = 0;
+  let moveTimer = 0;
   let pendingPointer = null;
   let pointerRaf = 0;
-  let maxParticles = 110;
+  let maxParticles = 150;
 
-  // Aqui guardamos las particulas y estrellas.
+  // Aqui guardamos las particulas del rastro.
   const particles = [];
-  const stars = [];
 
   // Ajusta el tamano del canvas.
   function resizeCanvas() {
@@ -630,56 +624,7 @@ function initAmbientEffects() {
     canvas.width = Math.floor(width * dpr);
     canvas.height = Math.floor(height * dpr);
     context.setTransform(dpr, 0, 0, dpr, 0, 0);
-    maxParticles = Math.max(80, Math.min(140, Math.round(width / 8)));
-  }
-
-  // Crea una estrella con valores aleatorios.
-  function createStar() {
-    return {
-      x: Math.random() * width,
-      y: Math.random() * height,
-      radius: Math.random() * 1.05 + 0.62,
-      alpha: Math.random() * 0.28 + 0.1,
-      twinkle: Math.random() * 0.05 + 0.015,
-      rotation: Math.random() * Math.PI
-    };
-  }
-
-  // Dibuja una estrella (en vez de un punto).
-  function drawStar(x, y, spikes, outerRadius, innerRadius, rotation) {
-    let angle = rotation;
-    const step = Math.PI / spikes;
-
-    context.beginPath();
-    context.moveTo(
-      x + Math.cos(angle) * outerRadius,
-      y + Math.sin(angle) * outerRadius
-    );
-
-    for (let i = 0; i < spikes; i += 1) {
-      angle += step;
-      context.lineTo(
-        x + Math.cos(angle) * innerRadius,
-        y + Math.sin(angle) * innerRadius
-      );
-      angle += step;
-      context.lineTo(
-        x + Math.cos(angle) * outerRadius,
-        y + Math.sin(angle) * outerRadius
-      );
-    }
-
-    context.closePath();
-  }
-
-  // Rellena la pantalla con estrellas.
-  function seedStars() {
-    stars.length = 0;
-    const starCount = Math.max(42, Math.round(width / 48));
-
-    for (let i = 0; i < starCount; i += 1) {
-      stars.push(createStar());
-    }
+    maxParticles = Math.max(110, Math.min(180, Math.round(width / 8)));
   }
 
   // Crea una particula en un punto.
@@ -689,17 +634,54 @@ function initAmbientEffects() {
     particles.push({
       x,
       y,
-      vx: (Math.random() - 0.5) * 1.35,
-      vy: (Math.random() - 0.5) * 1.35,
+      vx: (Math.random() - 0.5) * 1.05,
+      vy: (Math.random() - 0.5) * 1.05,
       life: 1,
-      size: Math.random() * 1.45 + 1,
-      rotation: Math.random() * Math.PI
+      size: Math.random() * 2.8 + 1.8,
+      rotation: Math.random() * Math.PI,
+      spin: (Math.random() - 0.5) * 0.018
     });
   }
 
+  // Dibuja una estrella tipo "sparkle" con cruz alargada.
+  function drawSparkleStar(x, y, size, rotation) {
+    function drawCross(arm, thickness) {
+      context.beginPath();
+      context.moveTo(0, -arm);
+      context.quadraticCurveTo(thickness, -thickness, 0, 0);
+      context.quadraticCurveTo(thickness, thickness, 0, arm);
+      context.quadraticCurveTo(-thickness, thickness, 0, 0);
+      context.quadraticCurveTo(-thickness, -thickness, 0, -arm);
+      context.closePath();
+      context.fill();
+
+      context.beginPath();
+      context.moveTo(-arm, 0);
+      context.quadraticCurveTo(-thickness, thickness, 0, 0);
+      context.quadraticCurveTo(thickness, thickness, arm, 0);
+      context.quadraticCurveTo(thickness, -thickness, 0, 0);
+      context.quadraticCurveTo(-thickness, -thickness, -arm, 0);
+      context.closePath();
+      context.fill();
+    }
+
+    context.save();
+    context.translate(x, y);
+    context.rotate(rotation);
+
+    drawCross(size * 1.9, size * 0.13);
+
+    context.globalAlpha *= 0.72;
+    context.rotate(Math.PI / 4);
+    drawCross(size * 0.85, size * 0.11);
+
+    context.restore();
+  }
+
   function processPointer(x, y) {
+    moveTimer = 9;
     const distance = Math.hypot(x - lastX, y - lastY);
-    const burst = Math.max(2, Math.min(7, Math.floor(distance / 10)));
+    const burst = Math.max(4, Math.min(10, Math.floor(distance / 10)));
 
     for (let i = 0; i < burst; i += 1) {
       const t = burst === 1 ? 1 : i / (burst - 1);
@@ -728,27 +710,7 @@ function initAmbientEffects() {
 
   // Este bucle dibuja todo una y otra vez.
   function render() {
-    frameCount += 1;
     context.clearRect(0, 0, width, height);
-
-    // Dibujar estrellas.
-    for (let i = 0; i < stars.length; i += 1) {
-      const star = stars[i];
-
-      // Pequeno parpadeo de cada estrella.
-      if (frameCount % 2 === 0) {
-        star.alpha += (Math.random() - 0.5) * star.twinkle;
-        star.alpha = Math.max(0.02, Math.min(0.22, star.alpha));
-        star.rotation += 0.002;
-      }
-
-      context.fillStyle = `rgba(233, 226, 214, ${star.alpha})`;
-      context.shadowBlur = 7;
-      context.shadowColor = "rgba(255, 238, 205, 0.34)";
-      drawStar(star.x, star.y, 5, star.radius, star.radius * 0.24, star.rotation);
-      context.fill();
-      context.shadowBlur = 0;
-    }
 
     // Dibujar particulas del rastro.
     for (let i = particles.length - 1; i >= 0; i -= 1) {
@@ -756,10 +718,9 @@ function initAmbientEffects() {
 
       particle.x += particle.vx;
       particle.y += particle.vy;
-      particle.vy -= 0.01;
-      particle.life -= 0.024;
-      particle.size *= 0.986;
-      particle.rotation += 0.022;
+      particle.life -= 0.014;
+      particle.size *= 0.993;
+      particle.rotation += particle.spin;
 
       // Cuando ya casi no se ve, la borramos.
       if (particle.life <= 0 || particle.size < 0.3) {
@@ -767,33 +728,27 @@ function initAmbientEffects() {
         continue;
       }
 
-      context.fillStyle = `rgba(233, 226, 214, ${particle.life * 0.96})`;
-      context.shadowBlur = 12;
-      context.shadowColor = "rgba(255, 235, 200, 0.68)";
-      drawStar(
-        particle.x,
-        particle.y,
-        5,
-        particle.size,
-        particle.size * 0.22,
-        particle.rotation
-      );
-      context.fill();
+      const alpha = particle.life * 0.68;
+      context.fillStyle = `rgba(233, 226, 214, ${alpha})`;
+      context.shadowBlur = 16;
+      context.shadowColor = `rgba(255, 234, 196, ${alpha * 0.9})`;
+      drawSparkleStar(particle.x, particle.y, particle.size, particle.rotation);
       context.shadowBlur = 0;
     }
+
+    // Si no se mueve el cursor, dejamos que se apague suavemente sin seguir generando carga visual.
+    if (moveTimer > 0) moveTimer -= 1;
 
     // Pedimos el siguiente frame.
     rafId = window.requestAnimationFrame(render);
   }
 
   resizeCanvas();
-  seedStars();
   render();
 
   // Si cambia el tamano de la ventana, recalculamos.
   window.addEventListener("resize", () => {
     resizeCanvas();
-    seedStars();
   });
 
   // Escuchamos movimiento del puntero.
@@ -813,4 +768,4 @@ function initAmbientEffects() {
 }
 
 // Arranca los efectos al cargar el archivo.
-// Efecto de estrellas/estela desactivado.
+initAmbientEffects();
