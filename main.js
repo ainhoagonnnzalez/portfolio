@@ -32,67 +32,90 @@ function goToContactMail() {
 ===================== */
 
 function initCustomCursor() {
+  // Comprobamos si el dispositivo tiene ratón "real" (no táctil).
   const canUseCustomCursor =
     window.matchMedia("(hover: hover)").matches &&
     window.matchMedia("(pointer: fine)").matches;
 
+  // Si no se puede usar cursor personalizado, salimos.
   if (!canUseCustomCursor) return;
 
+  // Añadimos una clase al <body> para activar estilos CSS del cursor.
   document.body.classList.add("has-custom-cursor");
 
+  // Creamos el contenedor del cursor en el DOM.
   const cursor = document.createElement("div");
+  // Le ponemos la clase para que coja estilo desde CSS.
   cursor.className = "custom-cursor";
+  // Insertamos las 3 piezas visuales del cursor.
   cursor.innerHTML = `
     <span class="custom-cursor-halo"></span>
     <span class="custom-cursor-orb"></span>
     <span class="custom-cursor-spark">✦</span>
   `;
+  // Lo añadimos al final del body.
   document.body.appendChild(cursor);
 
+  // Guardamos referencias a cada parte del cursor para moverlas.
   const halo = cursor.querySelector(".custom-cursor-halo");
   const orb = cursor.querySelector(".custom-cursor-orb");
   const spark = cursor.querySelector(".custom-cursor-spark");
 
+  // Posición objetivo (donde está el ratón).
   let targetX = window.innerWidth * 0.5;
   let targetY = window.innerHeight * 0.5;
+  // Posición actual (la que dibuja el cursor suavizado).
   let currentX = targetX;
   let currentY = targetY;
 
+  // Cada vez que el ratón se mueve, actualizamos el objetivo.
   function onMove(event) {
     targetX = event.clientX;
     targetY = event.clientY;
   }
 
+  // Bucle de animación del cursor.
   function animate() {
     // Seguimiento más rápido para que el cursor se sienta inmediato.
     currentX += (targetX - currentX) * 0.42;
     currentY += (targetY - currentY) * 0.42;
 
+    // Movemos el halo con suavizado.
     halo.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+    // Movemos el punto central casi pegado al ratón real.
     orb.style.transform = `translate3d(${targetX}px, ${targetY}px, 0) translate(-50%, -50%)`;
+    // Movemos la chispa con un pequeño offset para dar estilo.
     spark.style.transform = `translate3d(${currentX + 14}px, ${currentY - 14}px, 0) translate(-50%, -50%)`;
 
+    // Pedimos el siguiente frame para que siga animando.
     window.requestAnimationFrame(animate);
   }
 
+  // Elementos donde queremos efecto "hover" del cursor.
   const interactive = document.querySelectorAll("a, button, .project-image, .highlight-card");
   interactive.forEach((element) => {
+    // Al entrar con el ratón, activamos estado hover.
     element.addEventListener("mouseenter", () => {
       document.body.classList.add("cursor-hover");
     });
+    // Al salir, quitamos estado hover.
     element.addEventListener("mouseleave", () => {
       document.body.classList.remove("cursor-hover");
     });
   });
 
+  // Escuchamos movimiento global del puntero.
   window.addEventListener("pointermove", onMove, { passive: true });
+  // Si el puntero sale de la ventana, ocultamos cursor custom.
   window.addEventListener("pointerleave", () => {
     cursor.style.opacity = "0";
   });
+  // Si vuelve a entrar, lo mostramos.
   window.addEventListener("pointerenter", () => {
     cursor.style.opacity = "1";
   });
 
+  // Arrancamos la animación continua.
   animate();
 }
 
@@ -153,6 +176,10 @@ document.addEventListener("keydown", function (e) {
 
 // Miramos si GSAP existe en la pagina.
 const hasGSAP = typeof gsap !== "undefined";
+// Bandera global para detectar equipos donde conviene bajar carga.
+const isLowPerformanceDevice =
+  (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 6) ||
+  (navigator.deviceMemory && navigator.deviceMemory <= 8);
 
 // Si existe GSAP y ScrollTrigger, lo activamos.
 if (hasGSAP && typeof ScrollTrigger !== "undefined") {
@@ -513,33 +540,36 @@ if (hasGSAP && document.querySelector(".contact-layout")) {
 
 // Efecto suave de inclinacion en tarjetas/imagenes para dar vida al layout.
 if (hasGSAP) {
+  // En equipos justos, quitamos este efecto para priorizar fluidez.
+  if (isLowPerformanceDevice) {
+    // No hacemos tilt interactivo en modo rendimiento.
+  } else {
   const tiltTargets = document.querySelectorAll(".project-image, .process-step");
 
   tiltTargets.forEach((card) => {
+    // Preparamos setters rápidos (evita crear cientos de tweens por segundo).
+    const rotateYTo = gsap.quickTo(card, "rotationY", { duration: 0.22, ease: "power2.out" });
+    const rotateXTo = gsap.quickTo(card, "rotationX", { duration: 0.22, ease: "power2.out" });
+    gsap.set(card, {
+      transformPerspective: 700,
+      transformOrigin: "center"
+    });
+
     card.addEventListener("mousemove", (event) => {
       const rect = card.getBoundingClientRect();
       const offsetX = (event.clientX - rect.left) / rect.width - 0.5;
       const offsetY = (event.clientY - rect.top) / rect.height - 0.5;
 
-      gsap.to(card, {
-        rotationY: offsetX * 4,
-        rotationX: offsetY * -3,
-        transformPerspective: 700,
-        transformOrigin: "center",
-        duration: 0.4,
-        ease: "power2.out"
-      });
+      rotateYTo(offsetX * 3.2);
+      rotateXTo(offsetY * -2.4);
     });
 
     card.addEventListener("mouseleave", () => {
-      gsap.to(card, {
-        rotationY: 0,
-        rotationX: 0,
-        duration: 0.5,
-        ease: "power2.out"
-      });
+      rotateYTo(0);
+      rotateXTo(0);
     });
   });
+  }
 }
 
 /* =====================
@@ -591,26 +621,40 @@ function initAmbientEffects() {
 
   // En pantallas pequenas tampoco, para no recargar.
   const lowPowerDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+  // Si se cumple alguna condición de rendimiento/accesibilidad, paramos aquí.
   if (prefersReducedMotion || window.innerWidth < 768 || lowPowerDevice) return;
 
   // Canvas para dibujar un rastro suave del cursor.
   const canvas = document.createElement("canvas");
+  // ID para aplicar estilos CSS.
   canvas.id = "cursor-trail-canvas";
+  // Lo metemos al principio del body para que quede detrás del contenido.
   document.body.prepend(canvas);
 
+  // Contexto 2D para poder dibujar en el canvas.
   const context = canvas.getContext("2d");
+  // Si falla el contexto, no seguimos.
   if (!context) return;
 
+  // Variables de tamaño del canvas.
   let width = 0;
   let height = 0;
+  // Device Pixel Ratio para que se vea nítido.
   let dpr = 1;
+  // Última posición conocida del ratón.
   let lastX = window.innerWidth * 0.5;
   let lastY = window.innerHeight * 0.5;
+  // ID del requestAnimationFrame para poder pausar/reanudar.
   let rafId = 0;
+  // Contador simple para saber si hubo movimiento reciente.
   let moveTimer = 0;
+  // Guardamos último evento de puntero pendiente de procesar.
   let pendingPointer = null;
+  // ID del RAF del procesado de puntero.
   let pointerRaf = 0;
-  let maxParticles = 150;
+  // Límite de partículas en pantalla.
+  let maxParticles = isLowPerformanceDevice ? 95 : 140;
+  let isRendering = false;
 
   // Aqui guardamos las particulas del rastro.
   const particles = [];
@@ -619,12 +663,18 @@ function initAmbientEffects() {
   function resizeCanvas() {
     // DPR más contenido para bajar carga en pantallas retina.
     dpr = Math.min(window.devicePixelRatio || 1, 1.3);
+    // Guardamos ancho y alto actuales de la ventana.
     width = window.innerWidth;
     height = window.innerHeight;
+    // Tamaño real del lienzo (en píxeles físicos).
     canvas.width = Math.floor(width * dpr);
     canvas.height = Math.floor(height * dpr);
+    // Escalamos para dibujar usando coordenadas CSS normales.
     context.setTransform(dpr, 0, 0, dpr, 0, 0);
-    maxParticles = Math.max(110, Math.min(180, Math.round(width / 8)));
+    // Recalculamos máximo de partículas según ancho.
+    maxParticles = isLowPerformanceDevice
+      ? Math.max(70, Math.min(120, Math.round(width / 11)))
+      : Math.max(100, Math.min(165, Math.round(width / 9)));
   }
 
   // Crea una particula en un punto.
@@ -634,30 +684,45 @@ function initAmbientEffects() {
       particles.shift();
     }
 
+    // Insertamos una partícula nueva en el array.
     particles.push({
+      // Posición inicial.
       x,
       y,
+      // Velocidad inicial aleatoria para dispersión orgánica.
       vx: (Math.random() - 0.5) * 1.05,
       vy: (Math.random() - 0.5) * 1.05,
+      // Vida de la partícula (1 = viva, 0 = muerta).
       life: 1,
-      size: Math.random() * 2.8 + 1.8,
+      // Tamaño base de la estrella.
+      size: Math.random() * (isLowPerformanceDevice ? 2.1 : 2.5) + 1.5,
+      // Rotación inicial.
       rotation: Math.random() * Math.PI,
+      // Velocidad de giro.
       spin: (Math.random() - 0.5) * 0.018
     });
   }
 
   // Dibuja una estrella tipo "sparkle" con cruz alargada.
   function drawSparkleStar(x, y, size, rotation) {
+    // Función interna: dibuja una cruz alargada con curvas.
     function drawCross(arm, thickness) {
+      // Comenzamos un nuevo trazo.
       context.beginPath();
+      // Subimos a la punta superior.
       context.moveTo(0, -arm);
+      // Curva hacia el centro.
       context.quadraticCurveTo(thickness, -thickness, 0, 0);
+      // Curva hacia la punta inferior.
       context.quadraticCurveTo(thickness, thickness, 0, arm);
+      // Volvemos por el lado izquierdo.
       context.quadraticCurveTo(-thickness, thickness, 0, 0);
       context.quadraticCurveTo(-thickness, -thickness, 0, -arm);
+      // Cerramos y rellenamos.
       context.closePath();
       context.fill();
 
+      // Segunda parte de la cruz (horizontal).
       context.beginPath();
       context.moveTo(-arm, 0);
       context.quadraticCurveTo(-thickness, thickness, 0, 0);
@@ -668,29 +733,44 @@ function initAmbientEffects() {
       context.fill();
     }
 
+    // Guardamos estado actual del contexto.
     context.save();
+    // Movemos el origen a la posición de la estrella.
     context.translate(x, y);
+    // Rotamos la estrella.
     context.rotate(rotation);
 
+    // Capa principal (más grande).
     drawCross(size * 1.9, size * 0.13);
 
+    // Bajamos opacidad para la capa secundaria.
     context.globalAlpha *= 0.72;
+    // Giramos 45 grados para el brillo secundario.
     context.rotate(Math.PI / 4);
+    // Capa secundaria (más pequeña).
     drawCross(size * 0.85, size * 0.11);
 
+    // Restauramos estado previo del contexto.
     context.restore();
   }
 
   function processPointer(x, y) {
+    // Marcamos que hubo movimiento reciente.
     moveTimer = 9;
+    // Distancia entre posición anterior y nueva.
     const distance = Math.hypot(x - lastX, y - lastY);
-    const burst = Math.max(5, Math.min(14, Math.floor(distance / 8)));
+    // Cuántas estrellas crear según distancia recorrida.
+    const burst = isLowPerformanceDevice
+      ? Math.max(3, Math.min(8, Math.floor(distance / 11)))
+      : Math.max(4, Math.min(11, Math.floor(distance / 9)));
 
+    // Creamos partículas interpoladas para no dejar huecos.
     for (let i = 0; i < burst; i += 1) {
       const t = burst === 1 ? 1 : i / (burst - 1);
       spawnParticle(lastX + (x - lastX) * t, lastY + (y - lastY) * t);
     }
 
+    // Guardamos nueva posición como última referencia.
     lastX = x;
     lastY = y;
   }
@@ -704,6 +784,7 @@ function initAmbientEffects() {
       pointerRaf = window.requestAnimationFrame(() => {
         if (pendingPointer) {
           processPointer(pendingPointer.x, pendingPointer.y);
+          if (!isRendering) startRender();
           pendingPointer = null;
         }
         pointerRaf = 0;
@@ -711,18 +792,28 @@ function initAmbientEffects() {
     }
   }
 
+  function startRender() {
+    isRendering = true;
+    rafId = window.requestAnimationFrame(render);
+  }
+
   // Este bucle dibuja todo una y otra vez.
   function render() {
+    // Limpiamos el frame anterior.
     context.clearRect(0, 0, width, height);
 
     // Dibujar particulas del rastro.
     for (let i = particles.length - 1; i >= 0; i -= 1) {
       const particle = particles[i];
 
+      // Actualizamos posición.
       particle.x += particle.vx;
       particle.y += particle.vy;
+      // Reducimos vida poco a poco (fade out).
       particle.life -= 0.014;
+      // Se hace un poco más pequeña con el tiempo.
       particle.size *= 0.993;
+      // Gira ligeramente en cada frame.
       particle.rotation += particle.spin;
 
       // Cuando ya casi no se ve, la borramos.
@@ -731,23 +822,35 @@ function initAmbientEffects() {
         continue;
       }
 
+      // Opacidad calculada según vida restante.
       const alpha = particle.life * 0.68;
+      // Color de relleno crema.
       context.fillStyle = `rgba(233, 226, 214, ${alpha})`;
-      context.shadowBlur = 16;
+      // Glow alrededor.
+      context.shadowBlur = isLowPerformanceDevice ? 8 : 12;
       context.shadowColor = `rgba(255, 234, 196, ${alpha * 0.9})`;
+      // Dibujo de la estrella sparkle.
       drawSparkleStar(particle.x, particle.y, particle.size, particle.rotation);
+      // Limpiamos blur para no contaminar siguientes dibujos.
       context.shadowBlur = 0;
     }
 
     // Si no se mueve el cursor, dejamos que se apague suavemente sin seguir generando carga visual.
     if (moveTimer > 0) moveTimer -= 1;
 
+    // Si no quedan partículas y no hubo movimiento reciente, paramos el loop hasta próximo movimiento.
+    if (particles.length === 0 && moveTimer <= 0) {
+      isRendering = false;
+      rafId = 0;
+      return;
+    }
+
     // Pedimos el siguiente frame.
     rafId = window.requestAnimationFrame(render);
   }
 
+  // Ajustamos canvas al tamaño inicial.
   resizeCanvas();
-  render();
 
   // Si cambia el tamano de la ventana, recalculamos.
   window.addEventListener("resize", () => {
@@ -760,13 +863,15 @@ function initAmbientEffects() {
   // Si cambias de pestana, pausamos para ahorrar recursos.
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
+      // Paramos animación si la pestaña no está visible.
       cancelAnimationFrame(rafId);
+      isRendering = false;
       rafId = 0;
       return;
     }
 
     // Al volver, reactivamos.
-    if (!rafId) render();
+    if (!rafId && particles.length > 0) startRender();
   });
 }
 
