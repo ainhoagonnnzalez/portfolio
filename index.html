@@ -5,7 +5,7 @@
   <title>Ainhoa González · Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=1">
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 </head>
 
@@ -16,7 +16,7 @@
 
   <nav class="site-nav">
     <button type="button" class="nav-link" onclick="goToProjects()">Proyectos</button>
-    <button type="button" class="nav-link" onclick="goToServices()">Servicios</button>
+    <a href="#sobre-mi" class="nav-link">Sobre mí</a>
     <button type="button" class="nav-link" onclick="goToContact()">Contacto</button>
   </nav>
 </header>
@@ -30,20 +30,24 @@
     <span>P</span><span>O</span><span>R</span><span>T</span><span>F</span><span>O</span><span>L</span><span>I</span><span>O</span>
   </h1>
 
-  <span class="hero-sub">Graphic & Web Design</span>
+  <div class="hero-sub">
+    <span>FULL STACK WEB DEVELOPER</span>
+    <p>Desarrollo experiencias digitales donde código, funcionalidad y diseño trabajan juntos.</p>
+  </div>
   <img src="images/portada.png" alt="Ainhoa González" class="photo">
 </section>
 <div class="editorial-line"></div>
 
 <!-- INTRO -->
-<section class="intro">
+<section class="intro" id="sobre-mi">
   <div class="intro-grid">
     <div class="intro-text">
       <small>Sobre mí</small>
-      <h2>Diseño experiencias digitales<br>donde estética y código van de la mano</h2>
+      <h2>Desarrollo experiencias digitales<br>donde código y diseño van de la mano.</h2>
 
-      <p>Tengo 22 años y estudio Marketing y Publicidad en Girona.</p>
-      <p>Quiero dedicarme al diseño y desarrollo web creando experiencias visuales cuidadas.</p>
+      <p>Soy Ainhoa González y actualmente estoy cursando el bootcamp de Full Stack Web Development en Ironhack.</p>
+      <p>Me interesa construir aplicaciones web completas, desde la interfaz hasta la lógica del servidor y la gestión de datos.</p>
+      <p>Mi formación previa en Marketing y Publicidad y mi experiencia en diseño me aportan una visión adicional sobre experiencia de usuario, comunicación y dirección visual.</p>
     </div>
 
     <div class="intro-photo">
