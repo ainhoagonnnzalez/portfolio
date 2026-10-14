@@ -1392,3 +1392,95 @@ section {
     margin-bottom: 0.8rem;
   }
 }
+
+/* ========================================
+   PROJECT DETAILS
+======================================== */
+
+/* Descripción del proyecto */
+.project-description {
+  font-size: 0.95rem !important;
+  line-height: 1.8;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  color: #d6d0c6;
+  margin-top: 1.5rem;
+  max-width: 440px;
+}
+
+/* Tecnologías utilizadas */
+.project-technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1.8rem;
+}
+
+.project-technologies span {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  padding: 0.6rem 1rem;
+
+  border: 1px solid rgba(233, 226, 214, 0.25);
+  border-radius: 30px;
+
+  color: #e9e2d6;
+}
+
+/* Enlaces del proyecto */
+.project-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  align-items: center;
+}
+
+.project-links > span {
+  font-size: 0.8rem;
+  color: #bdb6aa;
+  letter-spacing: 0.04em;
+}
+
+/* Botones */
+.project-button {
+  display: inline-block;
+
+  padding: 0.9rem 1.6rem;
+
+  border: 1px solid rgba(233, 226, 214, 0.4);
+
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  transition: all 0.3s ease;
+}
+
+.project-button:hover {
+  background: #e9e2d6;
+  color: #0b0b0b;
+  transform: translateY(-3px);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+
+  .project-description {
+    max-width: 100%;
+  }
+
+  .project-technologies {
+    gap: 0.5rem;
+  }
+
+  .project-technologies span {
+    font-size: 0.65rem;
+  }
+
+  .project-links {
+    flex-wrap: wrap;
+  }
+
+}
