@@ -877,3 +877,46 @@ function initAmbientEffects() {
 
 // Arranca los efectos al cargar el archivo.
 initAmbientEffects();
+
+// ========================================
+// VIDEO DEMO BS WRAPS
+// ========================================
+
+function openVideo() {
+  const modal = document.getElementById("video-modal");
+  const video = document.getElementById("bswraps-video");
+
+  if (!modal || !video) return;
+
+  modal.classList.add("active");
+  document.body.style.overflow = "hidden";
+
+  video.play().catch(() => {});
+}
+
+function closeVideo() {
+  const modal = document.getElementById("video-modal");
+  const video = document.getElementById("bswraps-video");
+
+  if (!modal || !video) return;
+
+  modal.classList.remove("active");
+  document.body.style.overflow = "";
+
+  video.pause();
+  video.currentTime = 0;
+}
+
+// Cerrar haciendo clic fuera del vídeo
+document.getElementById("video-modal")?.addEventListener("click", function(event) {
+  if (event.target === this) {
+    closeVideo();
+  }
+});
+
+// Cerrar pulsando ESC
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape") {
+    closeVideo();
+  }
+});

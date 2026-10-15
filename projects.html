@@ -86,8 +86,24 @@
 
           <!-- Añadir enlaces cuando estén disponibles -->
           <div class="project-links">
-            <span>Proyecto en desarrollo</span>
-          </div>
+
+  <button
+
+    type="button"
+
+    class="project-button"
+
+    onclick="openVideo()"
+
+  >
+
+    ▶ Ver demo
+
+  </button>
+
+  <span>Aplicación privada · Acceso restringido</span>
+
+</div>
 
         </div>
 
@@ -144,7 +160,55 @@
 
   </section>
 
+<!-- VIDEO DEMO BS WRAPS -->
 
+<div id="video-modal" class="video-modal">
+
+  <button
+
+    type="button"
+
+    class="video-close"
+
+    onclick="closeVideo()"
+
+    aria-label="Cerrar vídeo"
+
+  >
+
+    ✕
+
+  </button>
+
+  <div class="video-container">
+
+    <video
+
+      id="bswraps-video"
+
+      controls
+
+      playsinline
+
+      preload="metadata"
+
+    >
+
+      <source
+
+        src="video/bswraps-demo-v3.mp4"
+
+        type="video/mp4"
+
+      >
+
+      Tu navegador no soporta vídeos.
+
+    </video>
+
+  </div>
+
+</div>
   <!-- LIGHTBOX -->
   <div id="lightbox" class="lightbox" onclick="closeLightbox()">
     <img
