@@ -898,22 +898,35 @@ section {
 }
 
 .project-media {
+
   width: 520px;
+
   height: 520px;
+
   background: #111;
+
   border-radius: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+  overflow: hidden;
+
 }
 
 .project-media img {
-  width: auto !important;
-  height: auto !important;
-  max-width: 85% !important;
-  max-height: 85% !important;
-  object-fit: contain;
+
+  width: 100% !important;
+
+  height: 100% !important;
+
+  max-width: none !important;
+
+  max-height: none !important;
+
+  object-fit: cover;
+
+  object-position: center;
+
   cursor: zoom-in;
+
 }
 
 .project-text h3 {
