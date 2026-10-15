@@ -1484,3 +1484,64 @@ section {
   }
 
 }
+
+/* =====================================================
+   AJUSTES NUEVO INDEX.HTML
+===================================================== */
+
+/* Tecnologías: 4 columnas en ordenador */
+.home-services .services-blocks {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+/* Centrar el texto de proyectos destacados */
+.home-projects .section-intro {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Evitar que la foto del hero se descoloque */
+.hero .photo {
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+}
+
+/* Separación de las secciones al navegar desde el menú */
+#sobre-mi {
+  scroll-margin-top: 110px;
+}
+
+/* TABLET */
+@media (max-width: 900px) {
+
+  .home-services .services-blocks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+
+}
+
+/* MÓVIL */
+@media (max-width: 600px) {
+
+  .home-services .services-blocks {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .hero .title {
+    font-size: clamp(3.5rem, 15vw, 6rem);
+  }
+
+  .hero .photo {
+    max-width: 78vw;
+  }
+
+  .home-projects-link {
+    max-width: 100%;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+  }
+
+}
