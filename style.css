@@ -1476,24 +1476,49 @@ section {
 
 /* Botones */
 .project-button {
-  display: inline-block;
 
-  padding: 0.9rem 1.6rem;
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 0.6rem;
+
+  padding: 0.85rem 1.8rem;
+
+  background: transparent;
+
+  color: #e9e2d6;
 
   border: 1px solid rgba(233, 226, 214, 0.4);
 
+  border-radius: 50px;
+
   font-size: 0.75rem;
+
   letter-spacing: 0.12em;
+
   text-transform: uppercase;
 
+  cursor: pointer;
+
   transition: all 0.3s ease;
+
 }
 
 .project-button:hover {
+
   background: #e9e2d6;
+
   color: #0b0b0b;
+
+  border-color: #e9e2d6;
+
   transform: translateY(-3px);
+
 }
+
 
 /* Responsive */
 @media (max-width: 900px) {
