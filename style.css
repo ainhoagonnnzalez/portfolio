@@ -462,11 +462,19 @@ section {
 }
 
 .title {
-  font-size: clamp(4rem, 18vw, 16rem);
+
+  font-size: clamp(4rem, 15vw, 13rem);
+
   line-height: 0.9;
+
   text-align: center;
+
+  white-space: nowrap;
+
   z-index: 1;
+
   pointer-events: none;
+
 }
 
 .photo {
@@ -1534,9 +1542,7 @@ section {
     font-size: clamp(3.5rem, 15vw, 6rem);
   }
 
-  .hero .photo {
-    max-width: 78vw;
-  }
+  
 
   .home-projects-link {
     max-width: 100%;
