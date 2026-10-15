@@ -1,290 +1,235 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Proyectos · Ainhoa González</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="UTF-8">
-  <title>Proyectos · Ainhoa González</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-</head>
-
-<body>
-
-  <!-- HEADER -->
-  <header class="site-header">
-    <button type="button" class="brand" onclick="goToHome()">
-      Ainhoa González
-    </button>
-
-    <nav class="site-nav">
-      <button type="button" class="nav-link" onclick="goToProjects()">
-        Proyectos
+  <body>
+    <!-- HEADER -->
+    <header class="site-header">
+      <button type="button" class="brand" onclick="goToHome()">
+        Ainhoa González
       </button>
 
-      <button type="button" class="nav-link" onclick="goToServices()">
-        Tecnologías
-      </button>
+      <nav class="site-nav">
+        <button type="button" class="nav-link" onclick="goToProjects()">
+          Proyectos
+        </button>
 
-      <button type="button" class="nav-link" onclick="goToContact()">
-        Contacto
-      </button>
-    </nav>
-  </header>
+        <button type="button" class="nav-link" onclick="goToServices()">
+          Tecnologías
+        </button>
 
-
-  <!-- PROYECTOS -->
-  <section class="projects">
-
-    <header class="projects-header">
-      <h1 class="section-title">Proyectos</h1>
-
-      <p class="projects-intro">
-        Una selección de proyectos de desarrollo web en los que
-        combino programación, funcionalidad y diseño para crear
-        experiencias digitales completas.
-      </p>
+        <button type="button" class="nav-link" onclick="goToContact()">
+          Contacto
+        </button>
+      </nav>
     </header>
 
-
-    <div class="projects-list">
-
-      <!-- PROYECTO 01: BS WRAPS -->
-      <article class="project-row">
-
-        <div class="project-media">
-          <!-- Sustituir por una captura del proyecto -->
-          <img
-            src="images/bswraps.png"
-            alt="Proyecto web BS Wraps"
-            onclick="openLightbox(this.src)"
-          >
-        </div>
-
-        <div class="project-text">
-
-          <span class="project-number">01</span>
-
-          <h3>BS Wraps</h3>
-
-          <p>DESARROLLO WEB · CRM</p>
-
-          <p class="project-description">
-            Desarrollo de una plataforma web con un sistema de gestión
-            de clientes, motocicletas y trabajos. Una solución que
-            combina una interfaz visual con herramientas para
-            organizar y optimizar procesos internos.
-          </p>
-
-          <div class="project-technologies">
-            <span>Next.js</span>
-            <span>React</span>
-            <span>Tailwind CSS</span>
-            <span>Base de datos</span>
-          </div>
-
-          <!-- Añadir enlaces cuando estén disponibles -->
-          <div class="project-links">
-
-  <button
-
-    type="button"
-
-    class="project-button"
-
-    onclick="openVideo()"
-
-  >
-
-    ▶ Ver demo
-
-  </button>
-
-  <span>Aplicación privada · Acceso restringido</span>
-
-</div>
-
-        </div>
-
-      </article>
-
-
-      <!-- PROYECTO 02: PORTFOLIO -->
-      <article class="project-row reverse">
-
-        <div class="project-media">
-          <!-- Sustituir por una captura de tu portfolio -->
-          <img
-            src="images/portfolio.png"
-            alt="Portfolio personal de Ainhoa González"
-            onclick="openLightbox(this.src)"
-          >
-        </div>
-
-        <div class="project-text">
-
-          <span class="project-number">02</span>
-
-          <h3>Portfolio personal</h3>
-
-          <p>FRONTEND DEVELOPMENT</p>
-
-          <p class="project-description">
-            Diseño y desarrollo de mi portfolio personal,
-            creado para presentar mis proyectos, tecnologías
-            y experiencia como desarrolladora web.
-            Incluye animaciones, interacciones y un diseño responsive.
-          </p>
-
-          <div class="project-technologies">
-            <span>HTML</span>
-            <span>CSS</span>
-            <span>JavaScript</span>
-            <span>GSAP</span>
-          </div>
-
-          <div class="project-links">
-
-            <a href="index.html" class="project-button">
-              Ver proyecto ↗
-            </a>
-
-          </div>
-
-        </div>
-
-      </article>
-
-    </div>
-
-  </section>
-
-<!-- VIDEO DEMO BS WRAPS -->
-
-<div id="video-modal" class="video-modal">
-
-  <button
-
-    type="button"
-
-    class="video-close"
-
-    onclick="closeVideo()"
-
-    aria-label="Cerrar vídeo"
-
-  >
-
-    ✕
-
-  </button>
-
-  <div class="video-container">
-
-    <video
-
-      id="bswraps-video"
-
-      controls
-
-      playsinline
-
-      preload="metadata"
-
-    >
-
-      <source
-
-        src="video/bswraps-demo-v3.mp4"
-
-        type="video/mp4"
-
-      >
-
-      Tu navegador no soporta vídeos.
-
-    </video>
-
-  </div>
-
-</div>
-  <!-- LIGHTBOX -->
-  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-    <img
-      id="lightbox-img"
-      src=""
-      alt="Vista ampliada del proyecto"
-      onclick="event.stopPropagation()"
-    >
-  </div>
-
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-
-    <div class="footer-container">
-
-      <div class="footer-brand">
-
-        <h3>Ainhoa González</h3>
-
-        <p>
-          Full Stack Web Developer.<br>
-          Desarrollo experiencias digitales funcionales,
-          intuitivas y cuidadas al detalle.
+    <!-- PROYECTOS -->
+    <section class="projects">
+      <header class="projects-header">
+        <h1 class="section-title">Proyectos</h1>
+
+        <p class="projects-intro">
+          Una selección de proyectos de desarrollo web en los que combino
+          programación, funcionalidad y diseño para crear experiencias digitales
+          completas.
         </p>
+      </header>
 
-        <span class="footer-location">Barcelona, España</span>
+      <div class="projects-list">
+        <!-- PROYECTO 01: PAC-MAN RUNNER -->
+        <article class="project-row reverse">
+          <div class="project-media">
+            <img
+              src="images/pac-man.png"
+              alt="Pac-Man Runner - Juego desarrollado con JavaScript"
+              onclick="openLightbox(this.src)"
+            />
+          </div>
 
-        <div class="footer-social">
-          <a href="#" aria-label="GitHub">GitHub</a>
-          <a href="#" aria-label="LinkedIn">LinkedIn</a>
+          <div class="project-text">
+            <span class="project-number">01</span>
+
+            <h3>Pac-Man Runner</h3>
+
+            <p>JAVASCRIPT · INTERACTIVE GAME</p>
+
+            <p class="project-description">
+              Desarrollo de un videojuego interactivo inspirado en los clásicos
+              arcade de los años 80. El jugador debe esquivar fantasmas mientras
+              la dificultad aumenta progresivamente. Incluye detección de
+              colisiones, sistema de puntuación, récords guardados y reinicio de
+              partida sin recargar la página.
+            </p>
+
+            <div class="project-technologies">
+              <span>HTML5</span>
+              <span>CSS3</span>
+              <span>JavaScript</span>
+              <span>DOM</span>
+              <span>ES6</span>
+            </div>
+
+            <div class="project-links">
+              <a
+                href="https://ainhoagonnnzalez.github.io/cube-runner-final/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-button"
+              >
+                Jugar ↗
+              </a>
+
+              <a
+                href="https://github.com/ainhoagonnnzalez/cube-runner-final"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-button"
+              >
+                GitHub ↗
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- PROYECTO 01: BS WRAPS -->
+        <article class="project-row">
+          <div class="project-media">
+            <!-- Sustituir por una captura del proyecto -->
+            <img
+              src="images/bswraps.png"
+              alt="Proyecto web BS Wraps"
+              onclick="openLightbox(this.src)"
+            />
+          </div>
+
+          <div class="project-text">
+            <span class="project-number">02</span>
+
+            <h3>BS Wraps</h3>
+
+            <p>DESARROLLO WEB · CRM</p>
+
+            <p class="project-description">
+              Desarrollo de una plataforma web con un sistema de gestión de
+              clientes, motocicletas y trabajos. Una solución que combina una
+              interfaz visual con herramientas para organizar y optimizar
+              procesos internos.
+            </p>
+
+            <div class="project-technologies">
+              <span>Next.js</span>
+              <span>React</span>
+              <span>Tailwind CSS</span>
+              <span>Base de datos</span>
+            </div>
+
+            <!-- Añadir enlaces cuando estén disponibles -->
+            <div class="project-links">
+              <button
+                type="button"
+                class="project-button"
+                onclick="openVideo()"
+              >
+                ▶ Ver demo
+              </button>
+
+              <span>Aplicación privada · Acceso restringido</span>
+            </div>
+          </div>
+        </article>
+
+        
+        
+      </div>
+    </section>
+
+    <!-- VIDEO DEMO BS WRAPS -->
+
+    <div id="video-modal" class="video-modal">
+      <button
+        type="button"
+        class="video-close"
+        onclick="closeVideo()"
+        aria-label="Cerrar vídeo"
+      >
+        ✕
+      </button>
+
+      <div class="video-container">
+        <video id="bswraps-video" controls playsinline preload="metadata">
+          <source src="video/bswraps-demo-v3.mp4" type="video/mp4" />
+
+          Tu navegador no soporta vídeos.
+        </video>
+      </div>
+    </div>
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+      <img
+        id="lightbox-img"
+        src=""
+        alt="Vista ampliada del proyecto"
+        onclick="event.stopPropagation()"
+      />
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="footer-container">
+        <div class="footer-brand">
+          <h3>Ainhoa González</h3>
+
+          <p>
+            Full Stack Web Developer.<br />
+            Desarrollo experiencias digitales funcionales, intuitivas y cuidadas
+            al detalle.
+          </p>
+
+          <span class="footer-location">Barcelona, España</span>
+
+          <div class="footer-social">
+            <a href="#" aria-label="GitHub">GitHub</a>
+            <a href="#" aria-label="LinkedIn">LinkedIn</a>
+          </div>
         </div>
 
+        <div class="footer-links">
+          <h4>Portfolio</h4>
+
+          <a href="projects.html">Proyectos</a>
+          <a href="services.html">Tecnologías</a>
+        </div>
+
+        <div class="footer-links">
+          <h4>Contacto</h4>
+
+          <a href="contact.html">Escríbeme</a>
+
+          <a href="mailto:ainhoagonnnzalez@gmail.com"> Email </a>
+        </div>
       </div>
 
+      <div class="footer-bottom">
+        <span>© 2026 Ainhoa González</span>
 
-      <div class="footer-links">
-
-        <h4>Portfolio</h4>
-
-        <a href="projects.html">Proyectos</a>
-        <a href="services.html">Tecnologías</a>
-
+        <span>Diseñado y desarrollado por mí ✨</span>
       </div>
+    </footer>
 
-
-      <div class="footer-links">
-
-        <h4>Contacto</h4>
-
-        <a href="contact.html">Escríbeme</a>
-
-        <a href="mailto:ainhoagonnnzalez@gmail.com">
-          Email
-        </a>
-
-      </div>
-
-    </div>
-
-
-    <div class="footer-bottom">
-
-      <span>© 2026 Ainhoa González</span>
-
-      <span>Diseñado y desarrollado por mí ✨</span>
-
-    </div>
-
-  </footer>
-
-
-  <!-- SCRIPTS -->
-  <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="main.js"></script>
-
-</body>
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="main.js"></script>
+  </body>
 </html>
