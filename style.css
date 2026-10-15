@@ -478,13 +478,23 @@ section {
 }
 
 .photo {
+
   position: absolute;
+
   left: 50%;
+
   top: 44%;
+
+  transform: translate(-50%, -50%);
+
   max-height: 80vh;
+
   opacity: 0.9;
+
   pointer-events: none;
+
   z-index: 3;
+
 }
 
 /* =====================================================
