@@ -55,113 +55,6 @@ body > * {
   z-index: 1;
 }
 
-.has-custom-cursor,
-.has-custom-cursor a,
-.has-custom-cursor button {
-  cursor: none !important;
-}
-
-.custom-cursor {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-  z-index: 3000;
-  opacity: 1;
-  transition: opacity 0.18s ease;
-}
-
-.custom-cursor-orb {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #ece5d8;
-  transform: translate(-50%, -50%);
-  box-shadow:
-    0 0 14px rgba(236,229,216,0.44),
-    0 0 24px rgba(236,229,216,0.22);
-}
-
-.custom-cursor-halo {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 1px solid rgba(236,229,216,0.36);
-  transform: translate(-50%, -50%);
-  transition: width 0.16s ease, height 0.16s ease, border-color 0.16s ease, opacity 0.16s ease;
-}
-
-.custom-cursor-spark {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  font-size: 0.62rem;
-  color: rgba(236,229,216,0.78);
-  line-height: 1;
-  transition: transform 0.16s ease, opacity 0.16s ease;
-  animation: cursorSparkle 2.8s linear infinite;
-}
-
-.has-custom-cursor.cursor-hover .custom-cursor-halo {
-  width: 38px;
-  height: 38px;
-  border-color: rgba(236,229,216,0.7);
-}
-
-.has-custom-cursor.cursor-hover .custom-cursor-spark {
-  transform: translate(-50%, -50%) scale(1.16);
-}
-
-@keyframes cursorSparkle {
-  0% {
-    opacity: 0.55;
-    rotate: 0deg;
-  }
-  50% {
-    opacity: 1;
-    rotate: 180deg;
-  }
-  100% {
-    opacity: 0.55;
-    rotate: 360deg;
-  }
-}
-
-.ambient-glow {
-  position: fixed;
-  inset: -25vh -20vw;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 18% 22%, rgba(233,226,214,0.13), transparent 36%),
-    radial-gradient(circle at 82% 16%, rgba(233,226,214,0.1), transparent 33%),
-    radial-gradient(circle at 65% 72%, rgba(233,226,214,0.09), transparent 38%);
-  filter: blur(30px);
-  animation: ambientShift 16s ease-in-out infinite alternate;
-}
-
-#cursor-trail-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.9;
-}
-
-@keyframes ambientShift {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  100% {
-    transform: translate3d(2.5vw, -2vh, 0) scale(1.05);
-  }
-}
-
 /* líneas estratégicas para dar más carácter sin meter color */
 .hero::before,
 .hero::after {
@@ -216,6 +109,11 @@ a,
 small,
 button {
   font-family: Arial, Helvetica, sans-serif;
+}
+
+a,
+button {
+  cursor: pointer;
 }
 
 a {
@@ -487,6 +385,10 @@ section {
 
   transform: translate(-50%, -50%);
 
+  width: auto;
+
+  height: auto;
+
   max-height: 80vh;
 
   opacity: 0.9;
@@ -583,6 +485,7 @@ section {
 
 .intro-photo img {
   max-width: 280px;
+  height: auto;
   border-radius: 12px;
   display: block;
 }
@@ -1117,6 +1020,7 @@ section {
 .contact-photo img {
   width: 100%;
   max-width: 360px;
+  height: auto;
   border-radius: 16px;
   display: block;
   margin-bottom: 4rem;
@@ -1358,6 +1262,18 @@ section {
 
   .highlights-grid {
     grid-template-columns: 1fr;
+  }
+
+  .process-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .process-step,
+  .process-step p,
+  .process-step small {
+    min-width: 0;
+    max-width: 100%;
   }
 
   .site-header {
