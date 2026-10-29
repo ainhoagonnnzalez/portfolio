@@ -1686,3 +1686,56 @@ section {
     right: 20px;
   }
 }
+
+/* Route 66 en proyectos destacados: una sola tarjeta, mismo tamaño de columna */
+.home-projects .projects-grid:has(> .project:only-child) {
+  grid-template-columns: minmax(0, 36rem);
+  justify-content: center;
+}
+
+.home-projects .project-info {
+  text-align: left;
+}
+
+.home-projects .project h3 {
+  font-size: 2rem;
+  line-height: 1.05;
+  margin-top: 1.2rem;
+}
+
+@media (max-width: 900px) {
+  .home-projects .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* Route 66 cabe en el ancho de la pantalla sin cambiar el resto de proyectos */
+  .project-row.project-route66 {
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+  }
+
+  .project-row.project-route66 .project-text,
+  .project-row.project-route66 .project-media {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .project-row.project-route66 .project-media {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    transform: none;
+  }
+
+  .project-row.project-route66 .project-media img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+  }
+
+  .project-row.project-route66 .project-description {
+    max-width: 100%;
+  }
+}
