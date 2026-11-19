@@ -1654,4 +1654,33 @@ section {
   .project-row.project-route66 .project-description {
     max-width: 100%;
   }
+
+  .project-row.project-unknown {
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+  }
+
+  .project-row.project-unknown .project-text,
+  .project-row.project-unknown .project-media {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .project-row.project-unknown .project-media {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    transform: none;
+  }
+
+  .project-row.project-unknown .project-media img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+  }
+
+  .project-row.project-unknown .project-description {
+    max-width: 100%;
+  }
 }
